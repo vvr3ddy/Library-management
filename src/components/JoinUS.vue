@@ -1,11 +1,12 @@
 <template>
   <div>
-    <b-row>
+    
+    <b-row class="mt-5">
     <b-col></b-col>
-    <b-col cols="4" class="text-left">
-      <h1 class="font-weight-bold">Built with ❤️ for</h1>
+    <b-col cols="4" class="text-left mt-5">
+      <h1 class="font-weight-bold ">Built with ❤️ for</h1>
       <h1 class="font-weight-bold">Book Lovers</h1>
-      <p class="text-justify">Access thousands of books across a wide range of genres at your fingertips.</p>
+      <p class="text-justify">Access thousands of books across tens of genres at your fingertips.</p>
     </b-col>
     <b-col cols="4">
       <b-card>

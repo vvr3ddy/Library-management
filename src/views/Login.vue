@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="mt-5">
     <b-container fluid>
       <b-row>
         <b-col></b-col>
         <b-col cols='3'>
+          <p>Sign in to our Portal.</p>
           <b-card>
             <p class="text-left font-weight-bold uname">Username or email address</p>
             <b-field label="Email">
