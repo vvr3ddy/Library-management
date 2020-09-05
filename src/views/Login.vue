@@ -32,7 +32,7 @@
           </b-card>
           <b-card class="new-signup">
             <b-card-text>
-              New to Portal? <a href="#">Create an account</a>
+              New to Portal? <router-link to="/join?source=login">Create an account</router-link>
             </b-card-text>
           </b-card>
         </b-col>

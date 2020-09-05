@@ -11,9 +11,9 @@
     <b-col cols="4">
       <b-card>
         <h6 class="text-left font-weight-bold uName">Username</h6>
-        <b-form-input ></b-form-input>
+        <b-form-input type="name"></b-form-input>
         <h6 class="text-left font-weight-bold eMail">Email</h6>
-        <b-form-input ></b-form-input>
+        <b-form-input type="email"></b-form-input>
         <h6 class="text-left font-weight-bold pwd" type="email">Password</h6>
         <b-form-input type="password"></b-form-input>
         <b-button variant="success" class="signUp" to="#">Sign Up</b-button>
