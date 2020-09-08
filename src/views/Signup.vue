@@ -1,99 +1,127 @@
 <template>
-  <div class="mt-5">
-    <b-container fluid>
+  <b-container fluid>
+    <div class="mt-5">
       <b-row>
         <b-col></b-col>
         <b-col cols="4">
-          <p class="header">Join our community</p>
-          <h1 class="join-us font-weight-bold">Create your account</h1>
           <div class="text-left">
+            <p class="text-center">Join our community</p>
+            <b-form @submit.stop.prevent="onSubmit">
+              <b-form-group id="username-group" label="Username" label-for="username" class="font-weight-bold">
+                <b-form-input
+                  id="username"
+                  name="username"
+                  v-model="$v.form.username.$model"
+                  :state="validateState('username')"
+                  aria-describedby="username-feedback"
+                ></b-form-input>
 
-            <label for="username-input" class="font-weight-bold">Username</label>  
-            <b-form-input
-              id="username-input"
-              v-model="username"
-              :state="usernameState"
-              type="text"
-              aria-describedby="username-feedback"
-              trim>
-            </b-form-input>
-              <b-form-invalid-feedback id="username-feedback">
-                Enter at least 6 letters
-              </b-form-invalid-feedback>
+                <b-form-invalid-feedback
+                  id="username-feedback"
+                >This is a required field and must be at least 6 characters.</b-form-invalid-feedback>
+              </b-form-group>
 
+              <b-form-group id="email-group" label="Email" label-for="email" class="font-weight-bold">
+                <b-form-input
+                  id="email"
+                  name="email"
+                  v-model="$v.form.email.$model"
+                  :state="validateState('email')"
+                  aria-describedby="email-feedback"
+                ></b-form-input>
 
-            <label for="email-input" class="font-weight-bold">Email address</label>  
-            <b-form-input
-              id="email-input"
-              v-model="email"
-              :state="emailState"
-              type="email"
-              trim></b-form-input>
-              <b-form-invalid-feedback id="email-feedback">
-                Enter a valid email format
-              </b-form-invalid-feedback>
+                <b-form-invalid-feedback
+                  id="email-feedback"
+                >This is a required field and must be a valid email format.</b-form-invalid-feedback>
+              </b-form-group>
 
+              <b-form-group id="password-group" label="Password" label-for="password" class="font-weight-bold">
+                <b-form-input
+                  id="password"
+                  name="password"
+                  v-model="$v.form.password.$model"
+                  :state="validateState('password')"
+                  aria-describedby="password-feedback"
+                ></b-form-input>
 
-          <label for="password-input" class="font-weight-bold">Password</label>  
-            <b-form-input
-              id="password-input"
-              v-model="password"
-              :state="passwordState"
-              type="password"
-              trim></b-form-input>
-              <b-form-invalid-feedback id="password-feedback">
-                Enter at least 8 letters
-              </b-form-invalid-feedback>
-
-          <vue-recaptcha sitekey="Site Key Here" :loadRecaptchaScript="true" class="mt-2"></vue-recaptcha>
+                <b-form-invalid-feedback
+                  id="password-feedback"
+                >This is a required field and must be atleast 8 characters.</b-form-invalid-feedback>
+              </b-form-group>
+              <div class='text-center'>
+                <b-button class="mr-2" type="submit" variant="outline-success">Submit</b-button>
+                <b-button class="ml-2" @click="resetForm()" variant="outline-danger">Reset</b-button>
+              </div>
+            </b-form>
           </div>
-          <b-button variant="primary" class="signUp w-100" to="#" size="lg">Create account</b-button>
         </b-col>
         <b-col></b-col>
       </b-row>
-    </b-container>
-  </div>
+    </div>
+  </b-container>
 </template>
 
 <style>
-.signUp{
-  font-size: 14px;
-  margin-top: 16px!important;
+body {
+  padding: 1rem;
 }
 </style>
 
 <script>
-import VueRecaptcha from 'vue-recaptcha';
+import { validationMixin } from "vuelidate";
+import { required, email, minLength } from "vuelidate/lib/validators";
+
 export default {
+	mixins: [validationMixin],
 	data () {
 		return {
-			username: '',
-			email: '',
-			password: '',
-			sitekey: '6LcFG8gZAAAAAAOMco4cNHuajCd1tBJvvXCxi1cI',
 			form: {
-				robot: false
+				username: null,
+				email: null,
+				password: null
+			}
+		};
+	},
+	validations: {
+		form: {
+			username: {
+				required,
+				minLength: minLength(6)
+			},
+			email: {
+				required,
+				email
+			},
+			password: {
+				required,
+				minLength: minLength(8)
 			}
 		}
 	},
 	methods: {
-		submit: function () {
-			if (this.form.robot) {
+		validateState (name) {
+			const { $dirty, $error } = this.$v.form[name];
+			return $dirty ? !$error : null;
+		},
+		resetForm () {
+			this.form = {
+				username: null,
+				email: null,
+				password: null
+			};
 
+			this.$nextTick(() => {
+				this.$v.$reset();
+			});
+		},
+		onSubmit () {
+			this.$v.form.$touch();
+			if (this.$v.form.$anyError) {
+				return;
 			}
-		},
-		onVerify: function (response) {
-			if (response) this.form.robot = true;
-		},
-	},
 
-	computed: {
-		usernameState () {
-			return this.username.length > 6 ? true : false
+			alert("Form submitted!");
 		}
-	},
-	components: {
-		'vue-recaptcha': VueRecaptcha
-	},
-}
+	}
+};
 </script>

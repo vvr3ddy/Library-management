@@ -4,9 +4,11 @@ import Home from '../views/Home.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import Vuelidate from 'vuelidate'
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(Vuelidate)
 Vue.use(VueRouter)
 
 const routes = [
