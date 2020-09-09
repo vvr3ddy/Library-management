@@ -41,6 +41,7 @@
                   name="password"
                   v-model="$v.form.password.$model"
                   :state="validateState('password')"
+                  type=password
                   aria-describedby="password-feedback"
                 ></b-form-input>
 
